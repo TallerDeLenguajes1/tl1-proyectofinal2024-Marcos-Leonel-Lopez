@@ -12,3 +12,4 @@ C:\Users\marco\Desktop\FAC\Informatica\3ro\Taller_I\tl1-proyectofinal2024-Marcos
 C:\Users\marco\Desktop\FAC\Informatica\3ro\Taller_I\tl1-proyectofinal2024-Marcos-Leonel-Lopez\obj\Debug\net8.0\tl1-proyectofinal2024-Marcos-Leonel-Lopez.pdb
 C:\Users\marco\Desktop\FAC\Informatica\3ro\Taller_I\tl1-proyectofinal2024-Marcos-Leonel-Lopez\obj\Debug\net8.0\tl1-proyectofinal2024-Marcos-Leonel-Lopez.genruntimeconfig.cache
 C:\Users\marco\Desktop\FAC\Informatica\3ro\Taller_I\tl1-proyectofinal2024-Marcos-Leonel-Lopez\obj\Debug\net8.0\ref\tl1-proyectofinal2024-Marcos-Leonel-Lopez.dll
+C:\Users\marco\Desktop\FAC\Informatica\3ro\Taller_I\tl1-proyectofinal2024-Marcos-Leonel-Lopez\obj\Debug\net8.0\tl1-proyectofinal2024-Marcos-Leonel-Lopez.sourcelink.json

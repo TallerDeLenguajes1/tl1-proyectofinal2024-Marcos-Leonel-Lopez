@@ -13,7 +13,7 @@ public class Personaje
     private int armadura;
     private float salud;
 
-    public Personaje(string tipo,string nombre,string apodo,DateTime fecha_nacimiento, int edad, int velocidad, int destreza, int fuerza, int armadura)
+    public Personaje(string tipo, string nombre, string apodo, DateTime fecha_nacimiento, int edad, int velocidad, int destreza, int fuerza, int armadura)
     {
         this.tipo = tipo;
         this.nombre = nombre;
@@ -46,27 +46,36 @@ public class Personaje
 
     private float danio(Personaje enemigo)
     {
-        int ataque, efectividad,defensa,cte;
+        int ataque, efectividad, defensa, cte;
         cte = 50;
         float res;
         Random random = new Random();
         ataque = this.destreza * this.fuerza * this.nivel;
         efectividad = random.Next(0, 101);
         defensa = enemigo.armadura * enemigo.velocidad;
-        res = (float)((ataque*efectividad)-defensa)/cte;
+        res = (float)((ataque * efectividad) - defensa) / cte;
         return (float)Math.Round(res, 2);
     }
 
     public void Atacar(Personaje enemigo)
     {
-        float danio = this.danio(enemigo);
-        enemigo.salud = (float)Math.Round((enemigo.salud - danio), 2);
-        Console.WriteLine($"{this.nombre} ha realizado {danio} puntos de daño a {enemigo.nombre}");
-        if(enemigo.estaVivo()){
-        Console.WriteLine($"La vida de {enemigo.nombre} es {enemigo.salud}");
+        if (this.estaVivo())
+        {
+            float danio = this.danio(enemigo);
+            enemigo.salud = (float)Math.Round((enemigo.salud - danio), 2);
+            Console.WriteLine($"{this.nombre} ha realizado {danio} puntos de daño a {enemigo.nombre}");
+            if (enemigo.estaVivo())
+            {
+                Console.WriteLine($"La vida de {enemigo.nombre} es {enemigo.salud}");
+            }
+            else
+            {
+                enemigo.morir();
+            }
         }else{
-            enemigo.morir();
+            
         }
+
     }
 
 }
