@@ -1,6 +1,8 @@
 // Root myDeserializedClass = JsonSerializer.Deserialize<Root>(myJsonResponse);
 using System.Text.Json.Serialization;
 // POKEMON
+namespace InfoPokeAPI
+{
     public class Move
     {
         [JsonPropertyName("move")]
@@ -156,6 +158,6 @@ using System.Text.Json.Serialization;
         [JsonPropertyName("damage_relations")]
         public DamageRelations damage_relations { get; set; }
     }
-
-
-
+ 
+}
+    
