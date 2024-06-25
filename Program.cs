@@ -1,4 +1,5 @@
 ﻿using System;
+using FabricaPj;
 using System.Text.Json;
 // DateTime nac = DateTime.Now;
 // //Personaje NuevoPJ1 = new Personaje("Planta","Chicorita","Chico",nac,12,5,4,9,10);
@@ -26,71 +27,38 @@ using System.Text.Json;
 // // NuevoPJ1.morir();
 // // Console.WriteLine("===\nEsta vivo? " + NuevoPJ1.Esta_Vivo());
 
-// bool isConnected = await Validation.CheckInternetConnection();
-// if (isConnected)
-// {
-//     int idPersonajes = 1;
-//     var url = $"https://pokeapi.co/api/v2/pokemon/{idPersonajes}";
-//     ServicioWeb servicioWeb = new ServicioWeb();
-
-//     Poke poke = await servicioWeb.GetData<Poke>(url);
-
-//     // string jsonString = JsonSerializer.Serialize(poke);
-//     // await SaveJsonToFileAsync("poke.json", jsonString);
-
-//     System.Console.WriteLine($"Nombre {poke.name}");
-//     System.Console.WriteLine($"Tipo1 {poke.types[0].type.name}");
-//     System.Console.WriteLine($"Tipo2 {poke.types[1].type.name}");
-// }
-// else
-// {
-//     Console.WriteLine("No hay conexión a Internet.");
-// }
-
-// static async Task SaveJsonToFileAsync(string fileName, string jsonString)
-// {
-//     try
-//     {
-//         using (StreamWriter writer = new StreamWriter(fileName, false))
-//         {
-//             await writer.WriteAsync(jsonString);
-//         }
-//         Console.WriteLine($"Archivo guardado como {fileName}");
-//     }
-//     catch (Exception ex)
-//     {
-//         Console.WriteLine($"Error al guardar el archivo: {ex.Message}");
-//     }
-// }
-using FabricaPj;
 
 
 // obtengo los datos de 10 pokemons
 Fabrica fabrica = new Fabrica();
-List<Pokemon> personajes = await fabrica.CrearListaPoke();
-foreach (var poke in personajes)
+List<Pokemon> personajes = new List<Pokemon>();
+bool is_connected = await Validation.CheckInternet();
+string jsonString;
+if (is_connected)
 {
-    Console.WriteLine($"Poke:\n{poke.Atributos()}");
-    // Console.WriteLine("Types: " + string.Join(", ", poke.types.Select(t => t.type.name)));
-    Console.WriteLine();
+    personajes = await fabrica.CrearListaPoke();
+    foreach (var poke in personajes)
+    {
+        Console.WriteLine($"Poke:\n{poke.Atributos()}");
+        Console.WriteLine();
+    }
+    jsonString = JsonSerializer.Serialize(personajes, new JsonSerializerOptions
+    {
+        WriteIndented = true // mejorar la legibilidad del JSON
+    });
+    System.Console.WriteLine(jsonString);
+    await ManejoJson.GuardarJson("poke.json", jsonString);
 }
-string jsonString = JsonSerializer.Serialize(personajes);
-await GuardarJson("poke.json", jsonString);
-
-
-
-static async Task GuardarJson(string fileName, string jsonString)
+else
 {
-    try
+    personajes = await ManejoJson.CargarJson("poke.json");
+    foreach (var poke in personajes)
     {
-        using (StreamWriter writer = new StreamWriter(fileName, false))
-        {
-            await writer.WriteAsync(jsonString);
-        }
-        Console.WriteLine($"Archivo guardado como {fileName}");
-    }
-    catch (Exception err)
-    {
-        Console.WriteLine($"Error al guardar el archivo: {err.Message}");
+        Console.WriteLine($"Poke:\n{poke.Atributos()}");
+        Console.WriteLine();
     }
 }
+
+
+
+

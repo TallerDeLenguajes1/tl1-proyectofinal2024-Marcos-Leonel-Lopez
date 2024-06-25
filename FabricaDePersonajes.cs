@@ -12,7 +12,7 @@ namespace FabricaPj
             Random random = new Random();
             while (count_id < 10)
             {
-                int id_poke = random.Next(0, 151);
+                int id_poke = random.Next(1, 151);
                 System.Console.WriteLine($"El id es {id_poke}");
                 if (!ids_usados.Contains(id_poke))
                 {

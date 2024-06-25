@@ -1,1 +1,112 @@
-[{},{},{},{},{},{},{},{},{},{}]
+[
+  {
+    "Id": 15,
+    "Name": "BEEDRILL",
+    "Hp": 65,
+    "Attack": 90,
+    "Defense": 40,
+    "Special_attack": 45,
+    "Special_defense": 80,
+    "Speed": 75,
+    "Level": 50
+  },
+  {
+    "Id": 97,
+    "Name": "HYPNO",
+    "Hp": 85,
+    "Attack": 73,
+    "Defense": 70,
+    "Special_attack": 73,
+    "Special_defense": 115,
+    "Speed": 67,
+    "Level": 50
+  },
+  {
+    "Id": 63,
+    "Name": "ABRA",
+    "Hp": 25,
+    "Attack": 20,
+    "Defense": 15,
+    "Special_attack": 105,
+    "Special_defense": 55,
+    "Speed": 90,
+    "Level": 50
+  },
+  {
+    "Id": 2,
+    "Name": "IVYSAUR",
+    "Hp": 60,
+    "Attack": 62,
+    "Defense": 63,
+    "Special_attack": 80,
+    "Special_defense": 80,
+    "Speed": 60,
+    "Level": 50
+  },
+  {
+    "Id": 130,
+    "Name": "GYARADOS",
+    "Hp": 95,
+    "Attack": 125,
+    "Defense": 79,
+    "Special_attack": 60,
+    "Special_defense": 100,
+    "Speed": 81,
+    "Level": 50
+  },
+  {
+    "Id": 33,
+    "Name": "NIDORINO",
+    "Hp": 61,
+    "Attack": 72,
+    "Defense": 57,
+    "Special_attack": 55,
+    "Special_defense": 55,
+    "Speed": 65,
+    "Level": 50
+  },
+  {
+    "Id": 90,
+    "Name": "SHELLDER",
+    "Hp": 30,
+    "Attack": 65,
+    "Defense": 100,
+    "Special_attack": 45,
+    "Special_defense": 25,
+    "Speed": 40,
+    "Level": 50
+  },
+  {
+    "Id": 44,
+    "Name": "GLOOM",
+    "Hp": 60,
+    "Attack": 65,
+    "Defense": 70,
+    "Special_attack": 85,
+    "Special_defense": 75,
+    "Speed": 40,
+    "Level": 50
+  },
+  {
+    "Id": 80,
+    "Name": "SLOWBRO",
+    "Hp": 95,
+    "Attack": 75,
+    "Defense": 110,
+    "Special_attack": 100,
+    "Special_defense": 80,
+    "Speed": 30,
+    "Level": 50
+  },
+  {
+    "Id": 136,
+    "Name": "FLAREON",
+    "Hp": 65,
+    "Attack": 130,
+    "Defense": 60,
+    "Special_attack": 95,
+    "Special_defense": 110,
+    "Speed": 65,
+    "Level": 50
+  }
+]

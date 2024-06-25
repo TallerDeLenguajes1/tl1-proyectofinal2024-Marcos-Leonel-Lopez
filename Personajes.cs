@@ -126,20 +126,31 @@ public class Pokemon
     private int special_defense;
     private int speed;
     private int level;
+
+    public int Id { get => id; set => id = value; }
+    public string Name { get => name; set => name = value; }
+    public float Hp { get => hp; set => hp = value; }
+    public int Attack { get => attack; set => attack = value; }
+    public int Defense { get => defense; set => defense = value; }
+    public int Special_attack { get => special_attack; set => special_attack = value; }
+    public int Special_defense { get => special_defense; set => special_defense = value; }
+    public int Speed { get => speed; set => speed = value; }
+    public int Level { get => level; set => level = value; }
+
     // private List<string> types;
     // private List<Move> moves;
-
+    public Pokemon() { } // necesario para dezerializar
     public Pokemon(int id, string name, int hp, int attack, int defense, int special_attack, int special_defense, int speed)
     {
-        this.id = id;
-        this.name = name;
-        this.hp = hp;
-        this.attack = attack;
-        this.defense = defense;
-        this.special_attack = special_attack;
-        this.special_defense = special_defense;
-        this.speed = speed;
-        this.level = 50;
+        this.Id = id;
+        this.Name = name.ToUpper();
+        this.Hp = hp;
+        this.Attack = attack;
+        this.Defense = defense;
+        this.Special_attack = special_attack;
+        this.Special_defense = special_defense;
+        this.Speed = speed;
+        this.Level = 50;
 
         // this.types = types;
         // this.moves = moves;
@@ -147,18 +158,18 @@ public class Pokemon
 
     public string Atributos()
     {
-        return $"{this.name}: \n Salud: {this.hp} \n Ataque: {this.attack} \n Defensa: {this.defense} \n Ataque especial: {this.special_attack} \n Defensa especial: {this.special_defense} \n Velocidad: {this.speed}";
+        return $"{this.Name}: \n Salud: {this.Hp} \n Ataque: {this.Attack} \n Defensa: {this.Defense} \n Ataque especial: {this.Special_attack} \n Defensa especial: {this.Special_defense} \n Velocidad: {this.Speed}";
     }
 
     private bool estaVivo()
     {
-        return this.hp > 0;
+        return this.Hp > 0;
     }
 
     private void morir()
     {
-        this.hp = 0;
-        Console.WriteLine($"{this.name} ha muerto!");
+        this.Hp = 0;
+        Console.WriteLine($"{this.Name} ha muerto!");
     }
 
     private float danio(Pokemon enemigo, float critic)
@@ -166,10 +177,10 @@ public class Pokemon
         float res, ataque, defensa, modif;
         Random random = new Random();
         int power_move = random.Next(79, 120);
-        ataque = (this.attack + this.special_attack) / 2;
-        defensa = (enemigo.defense + enemigo.special_defense) / 2;
+        ataque = (this.Attack + this.Special_attack) / 2;
+        defensa = (enemigo.Defense + enemigo.Special_defense) / 2;
         modif = critic;
-        res = ((((((2 + this.level) / 5) + 2) * power_move * (ataque / defensa)) / 50) + 2) * modif;
+        res = ((((((2 + this.Level) / 5) + 2) * power_move * (ataque / defensa)) / 50) + 2) * modif;
         return (float)Math.Round(res, 2);
     }
 
@@ -191,11 +202,11 @@ public class Pokemon
                 critic = 1.5F;
             }
             float danio = this.danio(enemigo, critic);
-            enemigo.hp = (float)Math.Round((enemigo.hp - danio), 2);
-            Console.WriteLine($"{this.name} ha realizado {danio} puntos de daño a {enemigo.name}");
+            enemigo.Hp = (float)Math.Round((enemigo.Hp - danio), 2);
+            Console.WriteLine($"{this.Name} ha realizado {danio} puntos de daño a {enemigo.Name}");
             if (enemigo.estaVivo())
             {
-                Console.WriteLine($"La vida de {enemigo.name} es {enemigo.hp}");
+                Console.WriteLine($"La vida de {enemigo.Name} es {enemigo.Hp}");
             }
             else
             {
