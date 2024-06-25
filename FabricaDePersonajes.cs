@@ -26,6 +26,18 @@ namespace FabricaPj
                     int special_attack = poke.stats[3].base_stat;
                     int special_defense = poke.stats[4].base_stat;
                     int speed = poke.stats[5].base_stat;
+                    //Contract tipo
+                    // int num_tipos = poke.types.Count;
+                    // if(num_tipos == 2){
+                    //     //poke.types[0].type.name
+                    //     url = poke.types[0].type.url;
+                    //     Type_Naturaleza tipo_nat1 = await servicioWeb.GetData<Type_Naturaleza>(url);
+                    //     url = poke.types[1].type.url;
+                    //     Type_Naturaleza tipo_nat2 = await servicioWeb.GetData<Type_Naturaleza>(url);
+                    // }else{
+                    //      url = poke.types[0].type.url;
+                    //     Type_Naturaleza tipo_nat1 = await servicioWeb.GetData<Type_Naturaleza>(url);
+                    // }
                     var nuevoPoke = new Pokemon(id_poke,name,hp,attack,defense,special_attack,special_defense,speed);
                     personajes.Add(nuevoPoke);
                     count_id++;

@@ -33,7 +33,7 @@
 //         return $"{this.nombre}: \n Velocidad: {this.velocidad} \n Destreza: {this.destreza} \n Fuerza: {this.fuerza} \n Nivel: {this.nivel} \n Armadura: {this.armadura} \n Salud: {this.salud}";
 //     }
 
-//     private bool estaVivo()
+//     private bool EstaVivo()
 //     {
 //         return this.salud > 0;
 //     }
@@ -59,12 +59,12 @@
 
 //     public void Atacar(Personaje enemigo)
 //     {
-//         if (this.estaVivo())
+//         if (this.EstaVivo())
 //         {
 //             float danio = this.danio(enemigo);
 //             enemigo.salud = (float)Math.Round((enemigo.salud - danio), 2);
 //             Console.WriteLine($"{this.nombre} ha realizado {danio} puntos de daño a {enemigo.nombre}");
-//             if (enemigo.estaVivo())
+//             if (enemigo.EstaVivo())
 //             {
 //                 Console.WriteLine($"La vida de {enemigo.nombre} es {enemigo.salud}");
 //             }
@@ -120,12 +120,14 @@ public class Pokemon
     private int id;
     private string name;
     private float hp;
+    private float hp_max;
     private int attack;
     private int defense;
     private int special_attack;
     private int special_defense;
     private int speed;
     private int level;
+    //private List<string> types;
 
     public int Id { get => id; set => id = value; }
     public string Name { get => name; set => name = value; }
@@ -136,8 +138,9 @@ public class Pokemon
     public int Special_defense { get => special_defense; set => special_defense = value; }
     public int Speed { get => speed; set => speed = value; }
     public int Level { get => level; set => level = value; }
+    public float Hp_max { get => hp_max; }
 
-    // private List<string> types;
+
     // private List<Move> moves;
     public Pokemon() { } // necesario para dezerializar
     public Pokemon(int id, string name, int hp, int attack, int defense, int special_attack, int special_defense, int speed)
@@ -145,6 +148,7 @@ public class Pokemon
         this.Id = id;
         this.Name = name.ToUpper();
         this.Hp = hp;
+        this.hp_max = hp;
         this.Attack = attack;
         this.Defense = defense;
         this.Special_attack = special_attack;
@@ -161,7 +165,7 @@ public class Pokemon
         return $"{this.Name}: \n Salud: {this.Hp} \n Ataque: {this.Attack} \n Defensa: {this.Defense} \n Ataque especial: {this.Special_attack} \n Defensa especial: {this.Special_defense} \n Velocidad: {this.Speed}";
     }
 
-    private bool estaVivo()
+    public bool EstaVivo()
     {
         return this.Hp > 0;
     }
@@ -169,7 +173,7 @@ public class Pokemon
     private void morir()
     {
         this.Hp = 0;
-        Console.WriteLine($"{this.Name} ha muerto!");
+        Console.WriteLine($"{this.Name} fue vencido!");
     }
 
     private float danio(Pokemon enemigo, float critic)
@@ -180,39 +184,56 @@ public class Pokemon
         ataque = (this.Attack + this.Special_attack) / 2;
         defensa = (enemigo.Defense + enemigo.Special_defense) / 2;
         modif = critic;
-        res = ((((((2 + this.Level) / 5) + 2) * power_move * (ataque / defensa)) / 50) + 2) * modif;
+        res = ((((((2 + this.Level) / 5) + 2) * power_move * (ataque / defensa)) / 100) + 2) * modif; //en un principio se divide por 50, luego modifico a 100
         return (float)Math.Round(res, 2);
     }
 
-    public void Atacar(Pokemon enemigo, float critic)
+    public void Atacar(Pokemon enemigo)
     {
-        Random random = new Random();
-
-        int own_luck = random.Next(0, 100);
-        int enemy_luck = random.Next(0, 100);
-        if (this.estaVivo())
+        if (enemigo.EstaVivo() && this.EstaVivo())
         {
-            if (own_luck > enemy_luck)
+            Console.WriteLine($"{this.name} ataco a {enemigo.Name}");
+            Random random = new Random();
+            float critic;
+            int own_luck = random.Next(0, 100);
+            int enemy_luck = random.Next(0, 100);
+            if (this.EstaVivo())
             {
-                critic = 2;
-                Console.WriteLine("Ataque critico!!!");
-            }
-            else
-            {
-                critic = 1.5F;
-            }
-            float danio = this.danio(enemigo, critic);
-            enemigo.Hp = (float)Math.Round((enemigo.Hp - danio), 2);
-            Console.WriteLine($"{this.Name} ha realizado {danio} puntos de daño a {enemigo.Name}");
-            if (enemigo.estaVivo())
-            {
-                Console.WriteLine($"La vida de {enemigo.Name} es {enemigo.Hp}");
-            }
-            else
-            {
-                enemigo.morir();
+                if (own_luck > enemy_luck)
+                {
+                    critic = 2;
+                    Console.WriteLine("== Ataque critico ==");
+                }
+                else
+                {
+                    critic = 1.5F;
+                }
+                float danio = this.danio(enemigo, critic);
+                enemigo.Hp = (float)Math.Round((enemigo.Hp - danio), 2);
+                Console.WriteLine($"{this.Name} ha realizado {danio} puntos de daño a {enemigo.Name}");
+                if (enemigo.EstaVivo())
+                {
+                    Console.WriteLine($"La vida de {enemigo.Name} es {enemigo.Hp}");
+                }
+                else
+                {
+                    enemigo.morir();
+                    this.Recompensa();
+                    Console.WriteLine($"{this.Name} recupero salud, su nueva salud es {this.Hp} e incremento sus estadisticas");
+                }
             }
         }
+
+    }
+
+    private void Recompensa(){
+        Random random = new Random();
+        this.Hp += (float)this.Hp_max*0.5f;;
+        this.Attack += random.Next(0, 1);
+        this.Defense += random.Next(0, 1);
+        this.Special_attack += random.Next(0, 1);
+        this.Special_defense += random.Next(0, 1);
+        this.Speed += random.Next(0, 1);
     }
 
 }
