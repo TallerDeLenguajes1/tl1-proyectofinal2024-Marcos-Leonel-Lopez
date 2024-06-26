@@ -1,12 +1,12 @@
 {
-  "Id": 119,
-  "Name": "SEAKING",
-  "Hp": 120,
-  "Attack": 92,
-  "Defense": 65,
-  "Special_attack": 65,
-  "Special_defense": 80,
-  "Speed": 68,
+  "Id": 93,
+  "Name": "HAUNTER",
+  "Hp": 40.91,
+  "Attack": 50,
+  "Defense": 45,
+  "Special_attack": 115,
+  "Special_defense": 55,
+  "Speed": 95,
   "Level": 50,
-  "Hp_max": 80
+  "Hp_max": 45
 }

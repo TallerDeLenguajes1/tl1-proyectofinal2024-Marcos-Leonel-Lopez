@@ -14,6 +14,7 @@ List<string> menuOptions = new List<string>
     "Cargar Partida",
     "Máximas Puntuaciones",
 };
+        Random random = new Random();
 
 
 string backupDirectory = "files/backup";
@@ -57,7 +58,6 @@ switch (selectedOption)
         Console.Clear();
         Console.WriteLine($"Elegiste a {myPoke.Name}");
         personajes.Remove(myPoke);
-        Random random = new Random();
         while (myPoke.EstaVivo() && personajes.Count > 0)
         {
             int randomIndex = random.Next(personajes.Count);
@@ -96,8 +96,45 @@ switch (selectedOption)
         }
         break;
     case "Cargar Partida":
-        // Lógica para cargar partida
         Console.WriteLine("Cargando partida...");
+        myPoke= await ManejoJson.CargarJson<Pokemon>(savedGamesDirectory, myPokeFileName);
+        personajes = await ManejoJson.CargarJson<List<Pokemon>>(savedGamesDirectory, opponentsFileName);
+         while (myPoke.EstaVivo() && personajes.Count > 0)
+        {
+            int randomIndex = random.Next(personajes.Count);
+            op = personajes[randomIndex];
+            Console.WriteLine($"Te enfrentas a {op.Name}");
+            Combate(myPoke, op);
+
+            if (myPoke.EstaVivo())
+            {
+                personajes.Remove(op);
+                Console.WriteLine("Enter para pasar al siguiente combate o escribe 'g' para guardar y salir:");
+                string input = Console.ReadLine();
+                if (input.Equals("g", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Guardar el estado del juego
+                    string myPokeJsonString = JsonSerializer.Serialize(myPoke, new JsonSerializerOptions { WriteIndented = true });
+                    await ManejoJson.GuardarJson(savedGamesDirectory, myPokeFileName, myPokeJsonString);
+
+                    string opponentsJsonString = JsonSerializer.Serialize(personajes, new JsonSerializerOptions { WriteIndented = true });
+                    await ManejoJson.GuardarJson(savedGamesDirectory, opponentsFileName, opponentsJsonString);
+                    return; // Salir del juego
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{myPoke.Name} ha sido derrotado!");
+            }
+
+
+
+            if (myPoke.EstaVivo() && personajes.Count == 0)
+            {
+                Console.WriteLine($"{myPoke.Name} ha derrotado a todos los oponentes!");
+                Console.ReadLine();
+            }
+        }
         break;
     case "Máximas Puntuaciones":
         // Lógica para mostrar máximas puntuaciones
