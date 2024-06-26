@@ -228,7 +228,7 @@ public class Pokemon
 
     private void Recompensa(){
         Random random = new Random();
-        this.Hp += (float)this.Hp_max*0.5f;;
+        this.Hp += (float)Math.Round((float)this.Hp_max*0.5f, 2);
         this.Attack += random.Next(0, 1);
         this.Defense += random.Next(0, 1);
         this.Special_attack += random.Next(0, 1);
