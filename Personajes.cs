@@ -196,7 +196,7 @@ public class Pokemon
             Random random = new Random();
             float critic;
             int own_luck = random.Next(0, 100);
-            int enemy_luck = random.Next(0, 100);
+            int enemy_luck = random.Next(50, 100);
             if (this.EstaVivo())
             {
                 if (own_luck > enemy_luck)

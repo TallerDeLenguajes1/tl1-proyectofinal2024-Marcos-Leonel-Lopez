@@ -1,0 +1,12 @@
+{
+  "Id": 119,
+  "Name": "SEAKING",
+  "Hp": 120,
+  "Attack": 92,
+  "Defense": 65,
+  "Special_attack": 65,
+  "Special_defense": 80,
+  "Speed": 68,
+  "Level": 50,
+  "Hp_max": 80
+}
