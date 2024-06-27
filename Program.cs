@@ -7,23 +7,23 @@ using System.Collections.Generic;
 string jsonString;
 int selectedIndex = 0;
 bool exit = false;
+Random random = new Random();
 List<Pokemon> personajes = new List<Pokemon>();
+
+//constantes
+string backupDirectory = "files/backup";
+string pokeFileName = "poke.json";
+string savedGamesDirectory = "files/saved_games";
+string myPokeFileName = "myPoke.json";
+string opponentsFileName = "opponents.json";
 List<string> menuOptions = new List<string>
 {
     "Nueva Partida",
     "Cargar Partida",
     "Máximas Puntuaciones",
 };
-        Random random = new Random();
-
-
-string backupDirectory = "files/backup";
-string pokeFileName = "poke.json";
-string savedGamesDirectory = "files/saved_games";
-string myPokeFileName = "myPoke.json";
-string opponentsFileName = "opponents.json";
-
-
+Console.Clear();
+//Muestra menu principal y devuelve "lo seleccionado"
 string selectedOption = Interface.SeleccionarElemento(menuOptions, ref selectedIndex, ref exit, 2, option => option);
 if (exit) return;
 
@@ -33,7 +33,7 @@ switch (selectedOption)
     case "Nueva Partida":
         Console.WriteLine("Iniciando nueva partida...");
         bool is_connected = await Validation.CheckInternet();
-        // Verifico si hay internet para realizar la conmeccion con la API o consumo datos locales creados en la ultima conexion
+        // Verifico si hay internet para realizar la conmeccion con la API o consumo el 'backup' de la ultima conexion
         if (is_connected)
         {
             // obtengo los datos de 10 pokemons
@@ -44,32 +44,43 @@ switch (selectedOption)
             {
                 WriteIndented = true // mejorar la legibilidad del JSON
             });
-            //System.Console.WriteLine(jsonString);
+            // Hago un 'backup' de los archivos traidos desde la API
             await ManejoJson.GuardarJson(backupDirectory, pokeFileName, jsonString);
         }
         else
         {
+            // Recupero el 'backup' de los archivos traidos desde la API en la ultima conexion con internet
             personajes = await ManejoJson.CargarJson<List<Pokemon>>(backupDirectory, pokeFileName);
         }
+
         Console.WriteLine("Elige tu Pokemon:");
         Pokemon op;
+        // A partir de la lista de 10 pokes, obtengo el indice(exit = true en caso de querer salir)
+        // 1 => indica en que forma se mostraran los objetos de la lista
+        // Utilizo función lambda (similar a funcion anonima en js) 
+        // 'p' representa un objeto de tipo Pokemon
+        // 'p.Name' es lo que se evalúa y se devuelve
         Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref selectedIndex, ref exit, 1, p => p.Name);
         if (exit) return;// para salir de la ejecucion
         Console.Clear();
+        // Muestro la seleccion y elimino dicho elemento del total de la lista
         Console.WriteLine($"Elegiste a {myPoke.Name}");
         personajes.Remove(myPoke);
+        // Mientras mi poke este vivo y haya rivales, se podra combatir
         while (myPoke.EstaVivo() && personajes.Count > 0)
         {
             int randomIndex = random.Next(personajes.Count);
             op = personajes[randomIndex];
             Console.WriteLine($"Te enfrentas a {op.Name}");
-            Combate(myPoke, op);
+
+            myPoke.Combate(op);
 
             if (myPoke.EstaVivo())
             {
                 personajes.Remove(op);
                 Console.WriteLine("Enter para pasar al siguiente combate o escribe 'g' para guardar y salir:");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine(); 
+                // Compara dos cadenas, ignorando mayusuclas y minusculas con 'OrdinalIgnoreCase'
                 if (input.Equals("g", StringComparison.OrdinalIgnoreCase))
                 {
                     // Guardar el estado del juego
@@ -97,14 +108,14 @@ switch (selectedOption)
         break;
     case "Cargar Partida":
         Console.WriteLine("Cargando partida...");
-        myPoke= await ManejoJson.CargarJson<Pokemon>(savedGamesDirectory, myPokeFileName);
+        myPoke = await ManejoJson.CargarJson<Pokemon>(savedGamesDirectory, myPokeFileName);
         personajes = await ManejoJson.CargarJson<List<Pokemon>>(savedGamesDirectory, opponentsFileName);
-         while (myPoke.EstaVivo() && personajes.Count > 0)
+        while (myPoke.EstaVivo() && personajes.Count > 0)
         {
             int randomIndex = random.Next(personajes.Count);
             op = personajes[randomIndex];
             Console.WriteLine($"Te enfrentas a {op.Name}");
-            Combate(myPoke, op);
+            myPoke.Combate(op);
 
             if (myPoke.EstaVivo())
             {
@@ -143,140 +154,37 @@ switch (selectedOption)
 }
 
 
-static void Turno(Pokemon op1, Pokemon op2)
-{
-    if (op1.Speed > op2.Speed)
-    {
-        op1.Atacar(op2);
-        if (op2.EstaVivo())
-        {
-            op2.Atacar(op1);
-        }
-    }
-    else
-    {
-        op2.Atacar(op1);
-        if (op1.EstaVivo())
-        {
-            op1.Atacar(op2);
-        }
-    }
-}
-
-static void Ganador(Pokemon op1, Pokemon op2)
-{
-    Pokemon aux = op1.EstaVivo() ? op1 : op2;
-    Console.WriteLine($"Gano {aux.Name}");
-}
-
-static void Combate(Pokemon op1, Pokemon op2)
-{
-    do
-    {
-        Turno(op1, op2);
-    } while (op1.EstaVivo() && op2.EstaVivo());
-    Ganador(op1, op2);
-}
-
-
-
-
-
-// static void MostrarPersonajes(List<Pokemon> personajes, int selectedIndex, int mode)
+// static void Turno(Pokemon op1, Pokemon op2)
 // {
-//     if (mode == 1)
+//     if (op1.Speed > op2.Speed)
 //     {
-//         for (int i = 0; i < personajes.Count; i++)
+//         op1.Atacar(op2);
+//         if (op2.EstaVivo())
 //         {
-//             if (i == selectedIndex)
-//             {
-//                 Console.BackgroundColor = ConsoleColor.Gray;
-//                 Console.ForegroundColor = ConsoleColor.DarkRed;
-//             }
-//             Console.WriteLine($"{i + 1}. {personajes[i].Name}");
-//             Console.ResetColor();
+//             op2.Atacar(op1);
 //         }
-//         Console.WriteLine("\nUse las flechas arriba/abajo para navegar, Enter para seleccionar, Escape para salir.");
 //     }
 //     else
 //     {
-//         for (int i = 0; i < personajes.Count; i++)
+//         op2.Atacar(op1);
+//         if (op1.EstaVivo())
 //         {
-//             if (i == selectedIndex)
-//             {
-//                 Console.Write("> "); //Marca el elemento seleccionado con '>'
-//             }
-//             else
-//             {
-//                 Console.Write("  "); //No marca los elementos no seleccionados
-//             }
-//             Console.WriteLine($"{i + 1}. {personajes[i].Name}");
+//             op1.Atacar(op2);
 //         }
-//         Console.WriteLine("\nUse las flechas arriba/abajo para navegar, Enter para seleccionar, Escape para salir.");
 //     }
 // }
 
-// static Pokemon SeleccionarPokemon(List<Pokemon> personajes, ref int selectedIndex, ref bool exit)
+// static void Ganador(Pokemon op1, Pokemon op2)
 // {
-//     while (!exit)
-//     {
-//         Console.Clear();
-//         MostrarPersonajes(personajes, selectedIndex, 1);
-//         var key = Console.ReadKey();
-//         switch (key.Key)
-//         {
-//             case ConsoleKey.UpArrow:
-//                 if (selectedIndex > 0) selectedIndex--;
-//                 break;
-//             case ConsoleKey.DownArrow:
-//                 if (selectedIndex < personajes.Count - 1) selectedIndex++;
-//                 break;
-//             case ConsoleKey.Enter:
-//                 Console.Clear();
-//                 Console.WriteLine(personajes[selectedIndex].Atributos());
-//                 Console.WriteLine("\nSelecciona este Poke? (Y/N)");
-//                 var confirmKey = Console.ReadKey();
-//                 if (confirmKey.Key == ConsoleKey.Y)
-//                 {
-//                     return personajes[selectedIndex];
-//                 }
-//                 break;
-//             case ConsoleKey.Escape:
-//                 exit = true;
-//                 break;
-//         }
-//     }
-//     return null;
+//     Pokemon aux = op1.EstaVivo() ? op1 : op2;
+//     Console.WriteLine($"Gano {aux.Name}");
 // }
 
-
-
-
-
-
-
-// while (!exit)
+// static void Combate(Pokemon op1, Pokemon op2)
 // {
-//     Console.Clear();
-//     Console.WriteLine("Elige tu Pokemon:");
-//     MostrarPersonajes(personajes, selectedIndex);
-//     var key = Console.ReadKey();
-//     switch (key.Key)
+//     do
 //     {
-//         case ConsoleKey.UpArrow:
-//             if (selectedIndex > 0) selectedIndex--;
-//             break;
-//         case ConsoleKey.DownArrow:
-//             if (selectedIndex < personajes.Count - 1) selectedIndex++;
-//             break;
-//         case ConsoleKey.Enter:
-//             Console.Clear();
-//             Console.WriteLine(personajes[selectedIndex].Atributos());
-//             Console.WriteLine("\nSelecciona este Poke?");
-//             Console.ReadKey();
-//             break;
-//         case ConsoleKey.Escape:
-//             exit = true;
-//             break;
-//     }
+//         Turno(op1, op2);
+//     } while (op1.EstaVivo() && op2.EstaVivo());
+//     Ganador(op1, op2);
 // }

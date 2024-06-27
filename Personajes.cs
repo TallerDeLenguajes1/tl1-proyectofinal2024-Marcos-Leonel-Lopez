@@ -218,7 +218,7 @@ public class Pokemon
                 else
                 {
                     enemigo.morir();
-                    this.Recompensa();
+                    this.recompensa();
                     Console.WriteLine($"{this.Name} recupero salud, su nueva salud es {this.Hp} e incremento sus estadisticas");
                 }
             }
@@ -226,14 +226,50 @@ public class Pokemon
 
     }
 
-    private void Recompensa(){
+    private void recompensa()
+    {
         Random random = new Random();
-        this.Hp += (float)Math.Round((float)this.Hp_max*0.5f, 2);
+        this.Hp += (float)Math.Round((float)this.Hp_max * 0.5f, 2);
         this.Attack += random.Next(0, 1);
         this.Defense += random.Next(0, 1);
         this.Special_attack += random.Next(0, 1);
         this.Special_defense += random.Next(0, 1);
         this.Speed += random.Next(0, 1);
+    }
+
+    private void turno(Pokemon enemigo)
+    {
+        if (this.Speed > enemigo.Speed)
+        {
+            this.Atacar(enemigo);
+            if (enemigo.EstaVivo())
+            {
+                enemigo.Atacar(this);
+            }
+        }
+        else
+        {
+            enemigo.Atacar(this);
+            if (this.EstaVivo())
+            {
+                this.Atacar(enemigo);
+            }
+        }
+    }
+
+    private void ganador(Pokemon enemigo)
+    {
+        Pokemon aux = this.EstaVivo() ? this : enemigo;
+        Console.WriteLine($"Gano {aux.Name}");
+    }
+
+    public void Combate(Pokemon enemigo)
+    {
+        do
+        {
+            this.turno(enemigo);
+        } while (this.EstaVivo() && enemigo.EstaVivo());
+        this.ganador(enemigo);
     }
 
 }

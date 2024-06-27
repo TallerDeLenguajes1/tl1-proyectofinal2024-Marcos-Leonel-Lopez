@@ -1,5 +1,7 @@
 public static class Interface
 {
+    // A la función lambda 'p => p/Name' le asigno 'Func<Pokemon, string>' llamado displayProperty
+    // Luego puedo llamar a esa función usando displayProperty({elemento})
     static void MostrarElementos<T>(List<T> elementos, int selectedIndex, int mode, Func<T, string> displayProperty)
     {
         if (mode == 1)
@@ -72,7 +74,24 @@ public static class Interface
                     if (mode == 1 && selectedIndex < elementos.Count - 1) selectedIndex++;
                     break;
                 case ConsoleKey.Enter:
-                    return elementos[selectedIndex];
+                    Console.Clear();
+                    // Si es un pokemon y no el menu, mostrara las propiedades de este
+                    if (typeof(T) == typeof(Pokemon))
+                    {
+                        Pokemon poke = elementos[selectedIndex] as Pokemon;
+                        Console.WriteLine(poke.Atributos());
+                        Console.WriteLine("\nSelecciona este elemento? (Y/N)");
+                        var confirmKey = Console.ReadKey();
+                        if (confirmKey.Key == ConsoleKey.Y)
+                        {
+                            return elementos[selectedIndex];
+                        }
+                    }
+                    else
+                    {
+                        return elementos[selectedIndex];
+                    }
+                    break;
                 case ConsoleKey.Escape:
                     Console.WriteLine("SSaliendo..."); // No toma la primera letra de la cadena ¿¿¿???
                     exit = true;
