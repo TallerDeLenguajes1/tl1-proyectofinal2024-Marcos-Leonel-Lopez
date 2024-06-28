@@ -27,7 +27,7 @@ public static class Interface
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("\nUse las flechas arriba/abajo para navegar por filas, izquierda/derecha para navegar por columnas, Enter para seleccionar, Escape para salir.");
+            Console.WriteLine("\nUse las flechas para navegar; Enter para seleccionar; Escape para salir.");
         }
         else
         {
@@ -43,18 +43,21 @@ public static class Interface
                 }
                 Console.WriteLine($"- {displayProperty(elementos[i])}");
             }
-            Console.WriteLine("\nUse las flechas arriba/abajo para navegar, Enter para seleccionar, Escape para salir.");
+            Console.WriteLine("\nUse las flechas arriba/abajo para navegar; Enter para seleccionar; Escape para salir.");
         }
     }
 
-
+// 'mode igual a 1 o 2' se pasa para seleccionar el tipo de vista
+// utilizo 'mode = 3' para mostrar el menu y no perder el 'historial' de la partida en curso
     public static T SeleccionarElemento<T>(List<T> elementos, ref int selectedIndex, ref bool exit, int mode, Func<T, string> displayProperty)
     {
         int columns = 5;
 
         while (!exit)
         {
+            if(mode==1 || mode == 2){
             Console.Clear();
+            }
             MostrarElementos(elementos, selectedIndex, mode, displayProperty);
             var key = Console.ReadKey();
             switch (key.Key)

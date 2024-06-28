@@ -6,14 +6,14 @@ namespace FabricaPj
         public async Task<List<Pokemon>> CrearListaPoke()
         {
             var personajes = new List<Pokemon>();
-            var ids_usados = new HashSet<int>(); // que es HashSet?
+            var ids_usados = new HashSet<int>(); // Aguiliza la busqueda y utilizo para evitar id's repetidos
             int count_id = 0;
             ServicioWeb servicioWeb = new ServicioWeb();
             Random random = new Random();
             while (count_id < 10)
             {
                 int id_poke = random.Next(1, 151);
-                System.Console.WriteLine($"El id es {id_poke}");
+                // Console.WriteLine($"El id es {id_poke}");
                 if (!ids_usados.Contains(id_poke))
                 {
                     ids_usados.Add(id_poke);
@@ -26,6 +26,7 @@ namespace FabricaPj
                     int special_attack = poke.stats[3].base_stat;
                     int special_defense = poke.stats[4].base_stat;
                     int speed = poke.stats[5].base_stat;
+                    int IV = random.Next(0,32);
                     //Contract tipo
                     // int num_tipos = poke.types.Count;
                     // if(num_tipos == 2){
@@ -38,7 +39,10 @@ namespace FabricaPj
                     //      url = poke.types[0].type.url;
                     //     Type_Naturaleza tipo_nat1 = await servicioWeb.GetData<Type_Naturaleza>(url);
                     // }
-                    var nuevoPoke = new Pokemon(id_poke,name,hp,attack,defense,special_attack,special_defense,speed);
+                    // Console.WriteLine($"hp antes {hp}");
+                    var nuevoPoke = new Pokemon(id_poke,name,hp,attack,defense,special_attack,special_defense,speed,IV);
+                    // Console.WriteLine($"hp despues {nuevoPoke.Hp}");
+
                     personajes.Add(nuevoPoke);
                     count_id++;
                 }
