@@ -60,7 +60,9 @@ public class Pokemon
     {
         this.Hp = 0;
         this.Score = 0;
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"{this.Name} fue vencido!");
+        Console.ResetColor();
     }
 
     private float danio(Pokemon enemigo, float critic)
@@ -79,6 +81,7 @@ public class Pokemon
     {
         if (enemigo.EstaVivo() && this.EstaVivo())
         {
+            
             Console.WriteLine($"{this.name} ataco a {enemigo.Name}");
             Random random = new Random();
             float critic;
@@ -89,7 +92,9 @@ public class Pokemon
                 if (own_luck > enemy_luck)
                 {
                     critic = 2;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("== Ataque critico ==");
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -161,16 +166,20 @@ public class Pokemon
         Pokemon aux = this.EstaVivo() ? this : enemigo;
         int longitud = aux.Name.Length;
         string tope = new string('-', longitud + 10);
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine($"{tope}");
         Console.WriteLine($"|| Gano {aux.Name} ||");
         Console.WriteLine($"{tope}");
+        Console.ResetColor();
     }
 
     public void Combate(Pokemon enemigo)
     {
         do
         {
+            Console.WriteLine("------------");
             this.turno(enemigo);
+            Console.WriteLine("------------");
         } while (this.EstaVivo() && enemigo.EstaVivo());
         this.ganador(enemigo);
     }

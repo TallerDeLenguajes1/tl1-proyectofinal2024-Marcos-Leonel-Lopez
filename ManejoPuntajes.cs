@@ -18,15 +18,36 @@ public static class Manejopunts
     {
         Console.Clear();
         Console.WriteLine("Máximas Puntuaciones:");
+        Console.WriteLine();
         if (puntajes == null || puntajes.Count == 0)
         {
             Console.WriteLine("No hay puntuaciones registradas.");
             return;
         }
 
+        // foreach (var puntaje in puntajes)
+        // {
+        //     Console.WriteLine($"{i}) {puntaje.Player} - {puntaje.Poke} - {puntaje.Score} - {puntaje.Fecha.ToString("dd/MM/yyyy")}");
+        //     i++;
+        // }
+        // Console.WriteLine();
+        // Console.WriteLine("Enter para volver...");
+
+        Console.WriteLine("{0,-5} {1,-20} {2,-10} {3,-10} {4,-15}", "Pos", "Jugador", "Pokemon", "Puntaje", "Fecha");
+        Console.WriteLine(new string('-', 60));
+        int i = 1;
         foreach (var puntaje in puntajes)
         {
-            Console.WriteLine($"{puntaje.Player} - {puntaje.Poke} - {puntaje.Score}");
+            Console.WriteLine("{0,-5} {1,-20} {2,-10} {3,-10:F2} {4,-15}",
+                i,
+                puntaje.Player,
+                puntaje.Poke,
+                puntaje.Score,
+                puntaje.Fecha.ToString("dd/MM/yyyy"));
+            i++;
         }
+
+        Console.WriteLine();
+        Console.WriteLine("Enter para volver...");
     }
 }

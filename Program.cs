@@ -237,13 +237,22 @@ while (true)
     Console.Clear();
     switch (selectedOption)
     {
+
+
+
+
+
         case "Nueva Partida":
-        
+            //juego.EliminarArchivosDelDirectorio(savedGamesDirectory, myPokeFileName,opponentsFileName);
+
+
+            selectedIndex = 0;
+
             Console.WriteLine("Iniciando nueva partida...");
             bool is_connected = await Validation.CheckInternet();
-            
+
             // Verifico si hay internet para realizar la conmección con la API o consumo el 'backup' de la ultima conexión
-            if (is_connected)
+            if (false)
             {
                 // obtengo los datos de 10 pokemons
                 Fabrica fabrica = new Fabrica();
@@ -281,6 +290,7 @@ while (true)
 
         case "Cargar Partida":
             Console.WriteLine("Cargando partida...");
+            Console.WriteLine();
             myPoke = await ManejoJson.CargarJson<Pokemon>(savedGamesDirectory, myPokeFileName);
             personajes = await ManejoJson.CargarJson<List<Pokemon>>(savedGamesDirectory, opponentsFileName);
             if (myPoke == null || personajes == null)
@@ -321,6 +331,7 @@ public class Juego
             int randomIndex = random.Next(personajes.Count);
             Pokemon op = personajes[randomIndex];
             Console.WriteLine($"Te enfrentas a {op.Name}");
+            Console.WriteLine();
             myPoke.Combate(op);
 
             if (myPoke.EstaVivo())
@@ -342,6 +353,7 @@ public class Juego
             {
                 Console.WriteLine();
                 Console.WriteLine($"{myPoke.Name} ha sido derrotado!");
+                ManejoJson.EliminarArchivosJson(savedGamesDirectory);
                 break; // Volver al menú principal
             }
 
@@ -353,6 +365,7 @@ public class Juego
                 puntajes = Manejopunts.AgregarPuntaje(puntajes, myPoke.Score, myPoke.Name);
                 string scoreJsonString = JsonSerializer.Serialize(puntajes, new JsonSerializerOptions { WriteIndented = true });
                 await ManejoJson.GuardarJson(scoreDirectory, scoreFileName, scoreJsonString);
+                ManejoJson.EliminarArchivosJson(savedGamesDirectory);
                 Console.ReadLine();
                 break; // Volver al menú principal
             }
