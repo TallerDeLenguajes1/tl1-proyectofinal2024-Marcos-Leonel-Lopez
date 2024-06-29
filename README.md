@@ -2,6 +2,12 @@
 
 Es un mini juego basado en los personajes de la serie/anime/videojuegos de Pokémon, en el que solo se tienen en cuenta sus stats bases (ataque, ataque especial, defensa, defensa especial y velocidad).
 
+- [Menú](#menú)
+- [Nueva Partida](#nueva-partida)
+- [Cargar Partida](#cargar-partida)
+- [Máximas Puntuaciones](#máximas-puntuaciones)
+- [Datos técnicos](#datos-técnicos)
+
 ## Menú
 
 - Nueva Partida
