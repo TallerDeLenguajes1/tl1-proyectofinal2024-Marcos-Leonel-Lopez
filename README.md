@@ -72,7 +72,7 @@ La información de cada personaje se trae desde el sitio [PokeApi](https://pokea
 
 La persistencia de información se realiza mediante archivos JSON alojados de forma local.
 
-### Posibles mejoras a implementar
+## Posibles mejoras a implementar
 
 - Agregar 4 movimientos que se eligen de forma elatoria y eliminar la aleatoriedad del Poder del Golpe.
 - Tener en cuenta los tipos del Poke atacante y defensor al momento de calcular el daño.
