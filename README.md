@@ -63,5 +63,6 @@ Es un apartado en el que podrá observar las 10 mejores puntuaciones indicando o
 
 ### Datos técnicos:
 La información de cada personaje se trae desde el sitio [PokeApi](https://pokeapi.co/?ref=apilist.fun).
+
 La persistencia de información se realiza mediante archivos JSON alojados de forma local.
 
