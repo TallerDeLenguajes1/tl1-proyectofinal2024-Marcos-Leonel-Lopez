@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 public static class ManejoJson
 {
@@ -38,7 +34,7 @@ public static class ManejoJson
             if (!File.Exists(filePath))
             {
                 // throw new FileNotFoundException($"El archivo {filePath} no existe.");
-                Console.WriteLine($"El archivo {filePath} no existe.");
+                //Console.WriteLine($"El archivo {filePath} no existe.");
                 return default;
             }
 

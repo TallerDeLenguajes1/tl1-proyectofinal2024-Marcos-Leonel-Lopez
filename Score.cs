@@ -5,12 +5,12 @@ public class Puntaje
     private string poke;
     private DateTime fecha;
 
-    public Puntaje(string player, float score, string poke)
+    public Puntaje(string player, float score, string poke,DateTime fecha)
     {
         this.player = player;
         this.score = score;
         this.poke = poke;
-        this.fecha = DateTime.Now;;
+        this.fecha = fecha;
         
     }
 

@@ -1,5 +1,3 @@
-using System.Formats.Asn1;
-
 public class Pokemon
 {
     private int id;
@@ -14,7 +12,6 @@ public class Pokemon
     private int level;
     private float score;
     private int iv;
-    //private List<string> types;
 
     public int Id { get => id; set => id = value; }
     public string Name { get => name; set => name = value; }
@@ -69,11 +66,11 @@ public class Pokemon
     {
         float res, ataque, defensa, modif;
         Random random = new Random();
-        int power_move = random.Next(79, 120);
+        int power_move = random.Next(80, 121);
         ataque = (this.Attack + this.Special_attack) / 2;
         defensa = (enemigo.Defense + enemigo.Special_defense) / 2;
         modif = critic;
-        res = ((((((2 + this.Level) / 5) + 2) * power_move * (ataque / defensa)) / 100) + 2) * modif; //en un principio se divide por 50, luego modifico a 100
+        res = ((((((2 * this.Level) / 5) + 2) * power_move * (ataque / defensa)) / 100) + 2) * modif; //en un principio se divide por 50, luego modifico a 100
         return (float)Math.Round(res, 2);
     }
 
@@ -138,7 +135,7 @@ public class Pokemon
         this.Defense += random.Next(0, 11);
         this.Special_attack += random.Next(0, 11);
         this.Special_defense += random.Next(0, 11);
-        this.Speed += random.Next(0, 6);
+        this.Speed += random.Next(0, 3);
     }
 
     private void turno(Pokemon enemigo)

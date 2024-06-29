@@ -1,4 +1,4 @@
-public static class Validation
+public static class Validaciones
 {
     public static async Task<bool> CheckInternet()
     {
