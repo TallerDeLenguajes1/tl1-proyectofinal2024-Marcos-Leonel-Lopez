@@ -34,7 +34,7 @@ Al momento de que un **Poke** va a atacar, se tiene en cuenta un factor de suert
 
 Para el cálculo del daño se utiliza:
 $$
-Daño = \left(\frac{ \left(\frac{2 \times nivel}{5} + 2\right) \times poder\ del\ golpe \times \frac{ataque}{defensa}}{100} + 2\right) \times modificador
+Daño =  (\frac{ (\frac{2 * nivel}{5} + 2) * poder del golpe * \frac{ataque}{defensa}}{100} + 2) * modificador
 $$
 
 Donde:
@@ -67,8 +67,11 @@ En caso de existir una partida guardada e iniciar una ***Nueva partida***, usted
 ## Máximas Puntuaciones
 Es un apartado en el que podrá observar las 10 mejores puntuaciones indicando orden, jugador, Poke, puntuación y fecha.
 
-### Datos técnicos:
+## Datos técnicos:
 La información de cada personaje se trae desde el sitio [PokeApi](https://pokeapi.co/?ref=apilist.fun).
 
 La persistencia de información se realiza mediante archivos JSON alojados de forma local.
+
+## Posibles mejoras a implementar
+
 
