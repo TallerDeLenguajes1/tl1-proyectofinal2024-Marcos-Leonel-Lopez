@@ -7,6 +7,7 @@ Es un mini juego basado en los personajes de la serie/anime/videojuegos de Poké
 - [Cargar Partida](#cargar-partida)
 - [Máximas Puntuaciones](#máximas-puntuaciones)
 - [Datos técnicos](#datos-técnicos)
+- [Posibles mejoras a implementar](#posibles-mejoras-a-implementar)
 
 ## Menú
 
@@ -33,9 +34,8 @@ Antes de iniciar una batalla, se corrobora que su **Poke** esté vivo (hp>0) y q
 Al momento de que un **Poke** va a atacar, se tiene en cuenta un factor de suerte. Si el atacante "tiene más suerte" que el que se defiende, este acertará un golpe crítico.
 
 Para el cálculo del daño se utiliza:
-$$
-Daño =  (\frac{ (\frac{2 * nivel}{5} + 2) * poder del golpe * \frac{ataque}{defensa}}{100} + 2) * modificador
-$$
+
+Daño = (((2 × nivel / 5) + 2) × poder del golpe × (ataque / defensa) / 100 + 2) × modificador
 
 Donde:
 * Nivel: nivel 50 para todo Poke.
@@ -72,6 +72,9 @@ La información de cada personaje se trae desde el sitio [PokeApi](https://pokea
 
 La persistencia de información se realiza mediante archivos JSON alojados de forma local.
 
-## Posibles mejoras a implementar
+### Posibles mejoras a implementar
 
+- Agregar 4 movimientos que se eligen de forma elatoria y eliminar la aleatoriedad del Poder del Golpe.
+- Tener en cuenta los tipos del Poke atacante y defensor al momento de calcular el daño.
+- Calculo de eperiencia ganada por combate y subida de nivel.
 
