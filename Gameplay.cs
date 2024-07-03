@@ -32,6 +32,7 @@ public static class Juego
             {
                 Console.WriteLine();
                 Console.WriteLine($"PERDISTE: {myPoke.Name} ha sido derrotado! ");
+                
                 Console.ReadKey();
                 break; // Volver al menú principal
             }

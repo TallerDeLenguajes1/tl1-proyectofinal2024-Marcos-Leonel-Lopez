@@ -22,9 +22,9 @@ public class Pokemon
     public int Special_defense { get => special_defense; set => special_defense = value; }
     public int Speed { get => speed; set => speed = value; }
     public int Level { get => level; set => level = value; }
-    public float Hp_max { get => hp_max; set => hp_max = value;}
+    public float Hp_max { get => hp_max; set => hp_max = value; }
     public float Score { get => score; set => score = value; }
-    public int Iv { get => iv; set => iv = value;}
+    public int Iv { get => iv; set => iv = value; }
 
     public Pokemon() { } // necesario para dezerializar
     public Pokemon(int id, string name, int hp, int attack, int defense, int special_attack, int special_defense, int speed, int IV)
@@ -78,7 +78,8 @@ public class Pokemon
     {
         if (enemigo.EstaVivo() && this.EstaVivo())
         {
-            
+            Thread.Sleep(500);
+            Console.WriteLine();
             Console.WriteLine($"{this.name} ataco a {enemigo.Name}");
             Random random = new Random();
             float critic;
@@ -100,7 +101,9 @@ public class Pokemon
                 float danio = this.danio(enemigo, critic);
                 enemigo.Hp = (float)Math.Round((enemigo.Hp - danio), 2);
                 Console.WriteLine();
+                Thread.Sleep(500);
                 Console.WriteLine($"{this.Name} ha realizado {danio} puntos de daño a {enemigo.Name}");
+                Thread.Sleep(500);
                 if (enemigo.EstaVivo())
                 {
                     Console.WriteLine();
@@ -112,6 +115,7 @@ public class Pokemon
                     this.recompensa();
                     Console.WriteLine();
                     Console.WriteLine($"{this.Name} recupero salud, su nueva salud es {this.Hp} e incremento sus estadisticas");
+                    Console.WriteLine();
                 }
             }
         }
@@ -120,6 +124,7 @@ public class Pokemon
 
     private void recompensa()
     {
+        int aux;
         Random random = new Random();
         this.Score = this.Score + (float)Math.Round(((this.Hp_max - this.Hp) * 100 / this.Hp_max) + 100, 2);
         if ((float)Math.Round((float)this.Hp + this.Hp_max * 0.4f, 2) > this.Hp_max)
@@ -130,11 +135,43 @@ public class Pokemon
         {
             this.Hp += (float)Math.Round((float)this.Hp_max * 0.4f, 2);
         }
-        this.Attack += random.Next(0, 11);
-        this.Defense += random.Next(0, 11);
-        this.Special_attack += random.Next(0, 11);
-        this.Special_defense += random.Next(0, 11);
-        this.Speed += random.Next(0, 3);
+        aux = random.Next(0, 11);
+        Console.WriteLine("\n*******");
+        if (aux > 0)
+        {
+            incremento("Ataque", this.Attack, aux);
+            this.Attack += aux;
+        }
+        aux = random.Next(0, 11);
+        if (aux > 0)
+        {
+            incremento("Defensa", this.Defense, aux);
+            this.Defense += aux;
+        }
+
+        aux = random.Next(0, 11);
+        if (aux > 0)
+        {
+            incremento("Ataque Especial", this.Special_attack, aux);
+            this.Special_attack += aux;
+        }
+
+
+        aux = random.Next(0, 11);
+        if (aux > 0)
+        {
+            incremento("Defensa Especial", this.Special_defense, aux);
+            this.Special_defense += aux;
+        }
+
+
+        aux = random.Next(0, 3);
+        if (aux > 0)
+        {
+            incremento("Velocidad", this.Speed, aux);
+            this.Speed += aux;
+        }
+        Console.WriteLine("*******");
     }
 
     private void turno(Pokemon enemigo)
@@ -177,7 +214,7 @@ public class Pokemon
         do
         {
 
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Console.WriteLine("------------");
             this.turno(enemigo);
             Console.WriteLine("------------");
@@ -188,6 +225,11 @@ public class Pokemon
     public float PuntajeFinal()
     {
         return this.score;
+    }
+
+    private void incremento(string stat, int inicial, int incremento)
+    {
+        Console.WriteLine($"{stat}: {inicial} + {incremento}");
     }
 
 }
