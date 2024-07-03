@@ -76,5 +76,5 @@ La persistencia de información se realiza mediante archivos JSON alojados de fo
 
 - Agregar 4 movimientos que se eligen de forma alatoria con sus efectos, potencia y cualquier otra propiedad que se considere necesaria para poder eliminar la aleatoriedad del Poder del Golpe que se implementa actualmente.
 - Tener en cuenta los tipos del Poke atacante y defensor al momento de calcular el daño.
-- Calculo de eperiencia ganada por combate y subida de nivel.
+- Calculo de experiencia ganada por combate y subida de nivel.
 
