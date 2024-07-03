@@ -12,7 +12,7 @@ Random random = new Random();
 List<Pokemon> personajes = new List<Pokemon>();
 List<Puntaje> puntajes = await ManejoJson.CargarJson<List<Puntaje>>(Constantes.scoreDirectory, Constantes.scoreFileName) ?? new List<Puntaje>();
 
-Juego juego = new Juego();
+//Juego juego = new Juego();
 
 while (true)
 {
@@ -130,7 +130,7 @@ while (true)
             Console.Clear();
             Console.WriteLine($"Elegiste a {myPoke.Name}");
             personajes.Remove(myPoke);
-            await juego.IniciarCombate(myPoke, personajes, puntajes);
+            await Juego.IniciarCombate(myPoke, personajes, puntajes);
             break;
 
 
@@ -145,12 +145,10 @@ while (true)
                 Console.ReadLine();
                 continue; // Volver al menú principal
             }
-            // Iniciar combate
-            await juego.IniciarCombate(myPoke, personajes, puntajes);
+            await Juego.IniciarCombate(myPoke, personajes, puntajes);
             break;
 
         case "Máximas Puntuaciones":
-            // Lógica para mostrar máximas puntuaciones
             Console.WriteLine("Mostrando máximas puntuaciones...");
             ManejoPuntos.MostrarMaximasPuntuaciones(puntajes);
             Console.ReadLine();

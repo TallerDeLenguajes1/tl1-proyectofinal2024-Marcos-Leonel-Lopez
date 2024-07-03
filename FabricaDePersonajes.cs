@@ -6,13 +6,13 @@ namespace FabricaPj
         public async Task<List<Pokemon>> CrearListaPoke()
         {
             var personajes = new List<Pokemon>();
-            var ids_usados = new HashSet<int>();
+            var ids_usados = new HashSet<int>(); //falicita la busqueda 
             int count_id = 0;
             ServicioWeb servicioWeb = new ServicioWeb();
             Random random = new Random();
             bool err = false;
 
-            while (count_id < 10)
+            while (count_id < 20)
             {
                 int id_poke = random.Next(1, 151);
                 if (!ids_usados.Contains(id_poke))

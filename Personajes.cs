@@ -122,14 +122,13 @@ public class Pokemon
     {
         Random random = new Random();
         this.Score = this.Score + (float)Math.Round(((this.Hp_max - this.Hp) * 100 / this.Hp_max) + 100, 2);
-        // Console.WriteLine($"Score: {this.Score}");
-        if ((float)Math.Round((float)this.Hp_max * 0.5f, 2) > this.Hp_max)
+        if ((float)Math.Round((float)this.Hp + this.Hp_max * 0.4f, 2) > this.Hp_max)
         {
             this.Hp = this.Hp_max;
         }
         else
         {
-            this.Hp += (float)Math.Round((float)this.Hp_max * 0.5f, 2);
+            this.Hp += (float)Math.Round((float)this.Hp_max * 0.4f, 2);
         }
         this.Attack += random.Next(0, 11);
         this.Defense += random.Next(0, 11);

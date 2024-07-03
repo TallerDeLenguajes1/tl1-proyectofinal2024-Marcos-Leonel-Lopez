@@ -110,11 +110,9 @@ public static class Interface
 
     while (!exit)
     {
-        // Limpiamos la consola solo si no estamos en modo 3 (menú principal)
-        if (mode != 3)
-        {
+
             Console.Clear();
-        }
+        
 
         // Mostramos los elementos según el modo seleccionado
         MostrarElementos(elementos, selectedIndex, mode, displayProperty);
