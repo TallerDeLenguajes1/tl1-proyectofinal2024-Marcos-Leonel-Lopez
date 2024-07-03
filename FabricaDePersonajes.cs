@@ -12,7 +12,7 @@ namespace FabricaPj
             Random random = new Random();
             bool err = false;
 
-            while (count_id < 20)
+            while (count_id < Constantes.maxPoke)
             {
                 int id_poke = random.Next(1, 151);
                 if (!ids_usados.Contains(id_poke))

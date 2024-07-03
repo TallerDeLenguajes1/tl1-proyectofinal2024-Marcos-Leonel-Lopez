@@ -20,60 +20,21 @@ while (true)
     Console.Clear();
     //Muestra menu principal y devuelve "lo seleccionado"
     selectedOption = Interface.SeleccionarElemento(Constantes.menuOptions, ref selectedIndex, ref exit, 2, option => option);
-    if (exit) return;
+    if (exit)
+    {
+        return;
+    }
     Console.Clear();
     switch (selectedOption)
     {
-        // case "Nueva Partida":
-        //     selectedIndex = 0;
-        //     Console.WriteLine("Iniciando nueva partida...");
-        //     bool is_connected = await Validaciones.CheckInternet();
-        //     // Verifico si hay internet para realizar la conmección con la API o consumo el 'backup' de la ultima conexión
-        //     if (is_connected)
-        //     {
-        //         // obtengo los datos de 10 pokemons
-        //         Fabrica fabrica = new Fabrica();
-        //         personajes = await fabrica.CrearListaPoke();
-        //         Console.WriteLine("Lista de Pokemons creada");
-        //         jsonString = JsonSerializer.Serialize(personajes, new JsonSerializerOptions
-        //         {
-        //             WriteIndented = true // mejorar la legibilidad del JSON
-        //         });
-        //         // Hago un 'backup' de los archivos traidos desde la API
-        //         await ManejoJson.GuardarJson(Constantes.backupDirectory, Constantes.pokeFileName, jsonString);
-        //     }
-        //     else
-        //     {
-        //         // Recupero el 'backup' de los archivos traidos desde la API en la ultima conexión con internet
-        //         personajes = await ManejoJson.CargarJson<List<Pokemon>>(Constantes.backupDirectory, Constantes.pokeFileName);
-        //         if (personajes == null)
-        //         {
-        //             Console.WriteLine("No se pudo cargar lista de pokemons.");
-        //             Console.ReadLine();
-        //             continue; // Volver al menú principal
-        //         }
-        //     }
-        //     Console.WriteLine("Elige tu Pokemon:");
-        //     Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref selectedIndex, ref exit, 1, p => p.Name);
-        //     if (exit) continue; // Volver al menú principal
-        //     Console.Clear();
-        //     // Muestro la selección y elimino dicho elemento del total de la lista
-        //     Console.WriteLine($"Elegiste a {myPoke.Name}");
-        //     personajes.Remove(myPoke);
-        //     // Iniciar combate
-        //     await juego.IniciarCombate(myPoke, personajes, puntajes);
-        //     break;
         case "Nueva Partida":
             selectedIndex = 0;
             Console.WriteLine("Iniciando nueva partida...");
-
             int subMenuIndex = 0;
             bool exitSubMenu = false;
             string selectedSubMenuOption = Interface.SeleccionarElemento(Constantes.subMenuOptions, ref subMenuIndex, ref exitSubMenu, 2, option => option);
-
             if (exitSubMenu)
             {
-                Console.WriteLine("\nContinue\n");
                 continue;
             }
 
@@ -125,8 +86,8 @@ while (true)
             }
 
             Console.WriteLine("Elige tu Pokemon:");
-            Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref selectedIndex, ref exit, 1, p => p.Name);
-            if (exit) continue; // Volver al menú principal
+            Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref selectedIndex, ref exitSubMenu, 1, p => p.Name);
+            if (exitSubMenu) continue; // Volver al menú principal
             Console.Clear();
             Console.WriteLine($"Elegiste a {myPoke.Name}");
             personajes.Remove(myPoke);
@@ -154,4 +115,5 @@ while (true)
             Console.ReadLine();
             break;
     }
+
 }

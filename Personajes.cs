@@ -139,6 +139,9 @@ public class Pokemon
 
     private void turno(Pokemon enemigo)
     {
+
+
+
         if (this.Speed > enemigo.Speed)
         {
             this.Atacar(enemigo);
@@ -173,6 +176,8 @@ public class Pokemon
     {
         do
         {
+
+            Thread.Sleep(2000);
             Console.WriteLine("------------");
             this.turno(enemigo);
             Console.WriteLine("------------");

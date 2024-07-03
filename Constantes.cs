@@ -7,6 +7,7 @@ public static class Constantes
     public const string savedGamesDirectory = "files/saved_games";
     public const string myPokeFileName = "myPoke.json";
     public const string opponentsFileName = "opponents.json";
+    public const int maxPoke = 10;
     public static readonly List<string> menuOptions = new List<string>
 {
     "Nueva Partida",

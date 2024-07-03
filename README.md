@@ -27,7 +27,7 @@ Al iniciar por primera vez el juego, es necesario ***Cargar nuevos datos***. Se 
 
 Esta primera carga de datos creará un _backup_ que luego podrá volver a usarse para iniciar una nueva partida o podrá cargar 10 nuevos personajes si así lo desea. Este proceso puede demorar unos cuantos segundos dependiendo de diversos factores: latencia de la red, procesamiento en el servidor, carga del servidor, etc.
 
-Si la carga de datos es exitosa, obtendrá un listado de 10 Pokes por los que navegará utilizando las flechas del teclado. Podrá ver las estadísticas de cada uno parándose sobre él y presionando ***Enter***. Para realizar la selección del mismo, debe ingresar la letra ***Y*** y luego ***Enter***. Para volver, presione cualquier otra tecla.
+Si la carga de datos es exitosa, obtendrá un listado de 10 Pokes por los que navegará utilizando las flechas del teclado. Podrá ver las estadísticas de cada uno parándose sobre él y presionando ***Enter***. Para realizar la selección del mismo, debe ingresar la letra ***Y*** y luego ***Enter***. Para volver,***Escape***.
 
 Antes de iniciar una batalla, se corrobora que su **Poke** esté vivo (hp>0) y que haya oponentes con los que se pueda enfrentar. Luego se selecciona un oponente al azar. Su **Poke** combatirá contra el oponente hasta que uno de los dos sea derrotado. Al iniciar el combate, atacará el **Poke** que cuente con mayor velocidad.
 
@@ -50,7 +50,7 @@ Si su **Poke** resulta victorioso, este obtendrá una serie de recompensas que s
 
 ### Recompensas
  1. Puntaje: 100 + % de vida restante.
- 2. Vida: recupera el 50% de la vida máxima.
+ 2. Vida: recupera el 40% de la vida máxima.
  3. Estadísticas Base: todas las estadísticas pueden aumentar entre 0 - 10 puntos, excepto la velocidad que solo puede aumentar entre 0 y 3.
 
 Al finalizar una batalla y obtener la victoria, podrá elegir si guardar su progreso y salir o continuar con la siguiente batalla.
@@ -60,12 +60,14 @@ Si usted derrota a todos los oponentes, podrá ingresar su nombre para guardarlo
 ## Cargar Partida
 Solo podrá cargar una partida si usted ***Guardó*** una previamente, caso contrario se indicará que no se pudo realizar la operación y deberá presionar ***Enter*** para volver al menú principal.
 
-Si carga una partida de manera exitosa, esta continuará con su curso normal hasta ganar o volver a ***Guardar y salir***.
+Si carga una partida de manera exitosa, esta continuará con su curso normal hasta ganar, perder o volver a ***Guardar y salir***.
 
 En caso de existir una partida guardada e iniciar una ***Nueva partida***, usted perderá la partida guardada.
 
 ## Máximas Puntuaciones
 Es un apartado en el que podrá observar las 10 mejores puntuaciones indicando orden, jugador, Poke, puntuación y fecha.
+
+***Enter*** para vover al menu principal.
 
 ## Datos técnicos:
 La información de cada personaje se trae desde el sitio [PokeApi](https://pokeapi.co/?ref=apilist.fun).
@@ -74,7 +76,7 @@ La persistencia de información se realiza mediante archivos JSON alojados de fo
 
 ## Posibles mejoras a implementar
 
-- Agregar 4 movimientos que se eligen de forma alatoria con sus efectos, potencia y cualquier otra propiedad que se considere necesaria para poder eliminar la aleatoriedad del Poder del Golpe que se implementa actualmente.
+- Agregar 4 movimientos que se eligen de forma alatoria. Con sus efectos, potencia y cualquier otra propiedad que se considere necesaria para poder eliminar la aleatoriedad del _Poder del Golpe_ que se implementa actualmente.
 - Tener en cuenta los tipos del Poke atacante y defensor al momento de calcular el daño.
 - Calculo de experiencia ganada por combate y subida de nivel.
 
