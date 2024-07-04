@@ -57,6 +57,7 @@ while (true)
                     bool isConnected = await Validaciones.CheckInternet();
                     if (isConnected)
                     {
+                        // podria ser static
                         Fabrica fabrica = new Fabrica();
                         personajes = await fabrica.CrearListaPoke();
                         if (personajes == null || personajes.Count() == 0)
@@ -87,7 +88,10 @@ while (true)
 
             Console.WriteLine("Elige tu Pokemon:");
             Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref selectedIndex, ref exitSubMenu, 1, p => p.Name);
-            if (exitSubMenu) continue; // Volver al menú principal
+            if (exitSubMenu)
+            {
+                continue;
+            } // Volver al menú principal
             Console.Clear();
             Console.WriteLine($"Elegiste a {myPoke.Name}");
             personajes.Remove(myPoke);

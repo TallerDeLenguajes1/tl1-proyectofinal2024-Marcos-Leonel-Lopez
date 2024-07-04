@@ -15,14 +15,11 @@ namespace FabricaPj
             while (count_id < Constantes.maxPoke)
             {
                 int id_poke = random.Next(1, 151);
-                if (!ids_usados.Contains(id_poke))
+                if (ids_usados.Add(id_poke))
                 {
-                    ids_usados.Add(id_poke);
-                    var url = Constantes.GetPokemonUrl(id_poke);
-
                     try
                     {
-                        Poke poke = await servicioWeb.GetData<Poke>(url);
+                        Poke poke = await servicioWeb.GetData<Poke>(Constantes.GetPokemonUrl(id_poke));
                         string name = poke.name;
                         int hp = poke.stats[0].base_stat;
                         int attack = poke.stats[1].base_stat;
@@ -31,7 +28,7 @@ namespace FabricaPj
                         int special_defense = poke.stats[4].base_stat;
                         int speed = poke.stats[5].base_stat;
                         int IV = random.Next(0, 32);
-
+                        
                         var nuevoPoke = new Pokemon(id_poke, name, hp, attack, defense, special_attack, special_defense, speed, IV);
                         personajes.Add(nuevoPoke);
                         count_id++;

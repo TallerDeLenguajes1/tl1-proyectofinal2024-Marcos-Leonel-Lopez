@@ -1,11 +1,12 @@
 public static class Interface
 {
-    // A la función lambda 'p => p/Name' le asigno 'Func<Pokemon, string>' llamado displayProperty
-    // Luego puedo llamar a esa función usando displayProperty({elemento})
-    static void MostrarElementos<T>(List<T> elementos, int selectedIndex, int mode, Func<T, string> displayProperty)
+    // A la función lambda 'p => p/Name' le asigno 'Func<Pokemon, string>' llamado mostrarProp
+    // Luego puedo llamar a esa función usando mostrarProp({elemento})
+    static void MostrarElementos<T>(List<T> elementos, int selectedIndex, int mode, Func<T, string> mostrarProp)
     {
         if (mode == 1)
         {
+            // Navegacion por filas y columnas
             int columns = 5;
             int rows = (int)Math.Ceiling((double)elementos.Count / columns);
 
@@ -21,7 +22,7 @@ public static class Interface
                             Console.BackgroundColor = ConsoleColor.Gray;
                             Console.ForegroundColor = ConsoleColor.DarkRed;
                         }
-                        Console.Write($"| {displayProperty(elementos[index])} |\t");
+                        Console.Write($"| {mostrarProp(elementos[index])} |\t");
                         Console.ResetColor();
                     }
                 }
@@ -31,6 +32,7 @@ public static class Interface
         }
         else
         {
+            // Navegacion en una sola columna
             for (int i = 0; i < elementos.Count; i++)
             {
                 if (i == selectedIndex)
@@ -41,7 +43,7 @@ public static class Interface
                 {
                     Console.Write("  ");
                 }
-                Console.WriteLine($"- {displayProperty(elementos[i])}");
+                Console.WriteLine($"- {mostrarProp(elementos[i])}");
             }
             Console.WriteLine("\nUse las flechas arriba/abajo para navegar; Enter para seleccionar; Escape para salir.");
         }
@@ -49,16 +51,16 @@ public static class Interface
 
     // 'mode igual a 1 o 2' se pasa para seleccionar el tipo de vista
 
-    public static T SeleccionarElemento<T>(List<T> elementos, ref int selectedIndex, ref bool exit, int mode, Func<T, string> displayProperty)
+    public static T SeleccionarElemento<T>(List<T> elementos, ref int selectedIndex, ref bool exit, int mode, Func<T, string> mostrarProp)
     {
-        // Variable para controlar la navegación por páginas en modo columna (mode = 1)
+        
         int columns = 5;
 
         while (!exit)
         {
             Console.Clear();
             // Mostramos los elementos según el modo seleccionado
-            MostrarElementos(elementos, selectedIndex, mode, displayProperty);
+            MostrarElementos(elementos, selectedIndex, mode, mostrarProp);
 
             var key = Console.ReadKey();
             switch (key.Key)
@@ -102,7 +104,7 @@ public static class Interface
                     {
                         Pokemon poke = elementos[selectedIndex] as Pokemon;
                         Console.WriteLine(poke.Atributos());
-                        Console.WriteLine("\n¿Seleccionar este elemento? \n Y: para confirmar \n Cualquier otra tecla para volver");
+                        Console.WriteLine("\n¿Seleccionar este elemento? \nY: para confirmar \nCualquier otra tecla para volver");
                         var confirmKey = Console.ReadKey();
                         if (confirmKey.Key == ConsoleKey.Y)
                         {

@@ -135,8 +135,9 @@ public class Pokemon
         {
             this.Hp += (float)Math.Round((float)this.Hp_max * 0.4f, 2);
         }
-        aux = random.Next(0, 11);
+        
         Console.WriteLine("\n*******");
+        aux = random.Next(0, 11);
         if (aux > 0)
         {
             incremento("Ataque", this.Attack, aux);
@@ -176,9 +177,6 @@ public class Pokemon
 
     private void turno(Pokemon enemigo)
     {
-
-
-
         if (this.Speed > enemigo.Speed)
         {
             this.Atacar(enemigo);
