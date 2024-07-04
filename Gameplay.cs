@@ -12,10 +12,21 @@ public static class Juego
             Console.WriteLine($"Te enfrentas a {op.Name}");
             Console.WriteLine();
             myPoke.Combate(op);
-
             if (myPoke.EstaVivo())
             {
                 personajes.Remove(op);
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine($"PERDISTE: {myPoke.Name} ha sido derrotado! ");
+                Thread.Sleep(5000);
+                break; // Volver al menú principal
+            }
+
+
+            if (myPoke.EstaVivo() && personajes.Count > 0)
+            {
                 Console.WriteLine("Enter para pasar al siguiente combate o escribe 'g' para guardar y salir:");
                 string input = Console.ReadLine();
                 if (input.Equals("g", StringComparison.OrdinalIgnoreCase))
@@ -28,13 +39,7 @@ public static class Juego
                     break; // Volver al menú principal
                 }
             }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine($"PERDISTE: {myPoke.Name} ha sido derrotado! ");
-                Console.ReadKey();
-                break; // Volver al menú principal
-            }
+
 
             if (myPoke.EstaVivo() && personajes.Count == 0)
             {
@@ -45,7 +50,7 @@ public static class Juego
                 string scoreJsonString = JsonSerializer.Serialize(puntajes, new JsonSerializerOptions { WriteIndented = true });
                 await ManejoJson.GuardarJson(Constantes.scoreDirectory, Constantes.scoreFileName, scoreJsonString);
                 ManejoJson.EliminarArchivosJson(Constantes.savedGamesDirectory);
-                Console.ReadLine();
+                Thread.Sleep(5000);
                 break; // Volver al menú principal
             }
         }

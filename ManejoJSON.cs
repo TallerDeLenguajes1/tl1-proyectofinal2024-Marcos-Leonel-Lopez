@@ -18,7 +18,7 @@ public static class ManejoJson
             {
                 await writer.WriteAsync(jsonString);
             }
-            Console.WriteLine($"Archivo guardado como {filePath}");
+            Console.WriteLine($"Archivo guardado");
         }
         catch (Exception err)
         {
@@ -33,7 +33,7 @@ public static class ManejoJson
             string filePath = Path.Combine(directoryPath, fileName);
             if (!File.Exists(filePath))
             {
-                // throw new FileNotFoundException($"El archivo {filePath} no existe.");
+                //throw new FileNotFoundException($"El archivo {filePath} no existe.");
                 //Console.WriteLine($"El archivo {filePath} no existe.");
                 return default;
             }

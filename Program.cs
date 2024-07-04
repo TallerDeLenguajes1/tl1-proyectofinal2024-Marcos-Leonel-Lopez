@@ -28,7 +28,7 @@ while (true)
     switch (selectedOption)
     {
         case "Nueva Partida":
-            selectedIndex = 0;
+            // selectedIndex = 0;
             Console.WriteLine("Iniciando nueva partida...");
             int subMenuIndex = 0;
             bool exitSubMenu = false;
@@ -87,7 +87,8 @@ while (true)
             }
 
             Console.WriteLine("Elige tu Pokemon:");
-            Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref selectedIndex, ref exitSubMenu, 1, p => p.Name);
+            subMenuIndex = 0;
+            Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref subMenuIndex, ref exitSubMenu, 1, p => p.Name);
             if (exitSubMenu)
             {
                 continue;
