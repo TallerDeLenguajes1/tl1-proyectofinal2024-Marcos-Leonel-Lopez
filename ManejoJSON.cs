@@ -33,8 +33,6 @@ public static class ManejoJson
             string filePath = Path.Combine(directoryPath, fileName);
             if (!File.Exists(filePath))
             {
-                //throw new FileNotFoundException($"El archivo {filePath} no existe.");
-                //Console.WriteLine($"El archivo {filePath} no existe.");
                 return default;
             }
 

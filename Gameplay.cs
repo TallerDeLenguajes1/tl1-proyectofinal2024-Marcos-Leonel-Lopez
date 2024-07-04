@@ -32,10 +32,10 @@ public static class Juego
                 if (input.Equals("g", StringComparison.OrdinalIgnoreCase))
                 {
                     string myPokeJsonString = JsonSerializer.Serialize(myPoke, new JsonSerializerOptions { WriteIndented = true });
-                    await ManejoJson.GuardarJson(Constantes.savedGamesDirectory, Constantes.myPokeFileName, myPokeJsonString);
+                    await ManejoJson.GuardarJson(Constantes.SavedGamesDirectorio, Constantes.MyPokeFileName, myPokeJsonString);
 
                     string opponentsJsonString = JsonSerializer.Serialize(personajes, new JsonSerializerOptions { WriteIndented = true });
-                    await ManejoJson.GuardarJson(Constantes.savedGamesDirectory, Constantes.opponentsFileName, opponentsJsonString);
+                    await ManejoJson.GuardarJson(Constantes.SavedGamesDirectorio, Constantes.OponentsFileName, opponentsJsonString);
                     Thread.Sleep(500);
                     break; // Volver al menú principal
                 }
@@ -49,8 +49,8 @@ public static class Juego
                 Console.WriteLine($"Tu puntaje fue: {myPoke.PuntajeFinal()}");
                 puntajes = ManejoPuntos.AgregarPuntaje(puntajes, myPoke.Score, myPoke.Name);
                 string scoreJsonString = JsonSerializer.Serialize(puntajes, new JsonSerializerOptions { WriteIndented = true });
-                await ManejoJson.GuardarJson(Constantes.scoreDirectory, Constantes.scoreFileName, scoreJsonString);
-                ManejoJson.EliminarArchivosJson(Constantes.savedGamesDirectory);
+                await ManejoJson.GuardarJson(Constantes.ScoreDirectorio, Constantes.ScoreFileName, scoreJsonString);
+                ManejoJson.EliminarArchivosJson(Constantes.SavedGamesDirectorio);
                 Thread.Sleep(5000);
                 break; // Volver al menú principal
             }

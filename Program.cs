@@ -10,7 +10,7 @@ bool exit = false;
 Random random = new Random();
 
 List<Pokemon> personajes = new List<Pokemon>();
-List<Puntaje> puntajes = await ManejoJson.CargarJson<List<Puntaje>>(Constantes.scoreDirectory, Constantes.scoreFileName) ?? new List<Puntaje>();
+List<Puntaje> puntajes = await ManejoJson.CargarJson<List<Puntaje>>(Constantes.ScoreDirectorio, Constantes.ScoreFileName) ?? new List<Puntaje>();
 
 //Juego juego = new Juego();
 
@@ -19,7 +19,7 @@ while (true)
     indiceSelec = 0;
     Console.Clear();
     //Muestra menu principal y devuelve "lo seleccionado"
-    opSeleccionada = Interface.SeleccionarElemento(Constantes.menuOptions, ref indiceSelec, ref exit, 2, option => option);
+    opSeleccionada = Interface.SeleccionarElemento(Constantes.MenuOptions, ref indiceSelec, ref exit, 2, option => option);
     if (exit)
     {
         return;
@@ -32,7 +32,7 @@ while (true)
             Console.WriteLine("Iniciando nueva partida...");
             int indexSubMenu = 0;
             bool exitSubMenu = false;
-            string opSelecSubMenu = Interface.SeleccionarElemento(Constantes.subMenuOptions, ref indexSubMenu, ref exitSubMenu, 2, option => option);
+            string opSelecSubMenu = Interface.SeleccionarElemento(Constantes.SubMenuOptions, ref indexSubMenu, ref exitSubMenu, 2, option => option);
             if (exitSubMenu)
             {
                 continue;
@@ -43,7 +43,7 @@ while (true)
             {
                 case "Usar datos guardados":
                     Console.WriteLine("Usando datos guardados...");
-                    personajes = await ManejoJson.CargarJson<List<Pokemon>>(Constantes.backupDirectory, Constantes.pokeFileName);
+                    personajes = await ManejoJson.CargarJson<List<Pokemon>>(Constantes.BackupDirectorio, Constantes.PokeFileName);
                     if (personajes == null)
                     {
                         Console.WriteLine("No se pudo cargar lista de pokemons desde el respaldo.");
@@ -71,7 +71,7 @@ while (true)
                         {
                             WriteIndented = true // mejorar la legibilidad del JSON
                         });
-                        await ManejoJson.GuardarJson(Constantes.backupDirectory, Constantes.pokeFileName, jsonString);
+                        await ManejoJson.GuardarJson(Constantes.BackupDirectorio, Constantes.PokeFileName, jsonString);
                     }
                     else
                     {
@@ -103,8 +103,8 @@ while (true)
         case "Cargar Partida":
             Console.WriteLine("Cargando partida...");
             Console.WriteLine();
-            myPoke = await ManejoJson.CargarJson<Pokemon>(Constantes.savedGamesDirectory, Constantes.myPokeFileName);
-            personajes = await ManejoJson.CargarJson<List<Pokemon>>(Constantes.savedGamesDirectory, Constantes.opponentsFileName);
+            myPoke = await ManejoJson.CargarJson<Pokemon>(Constantes.SavedGamesDirectorio, Constantes.MyPokeFileName);
+            personajes = await ManejoJson.CargarJson<List<Pokemon>>(Constantes.SavedGamesDirectorio, Constantes.OponentsFileName);
             if (myPoke == null || personajes == null)
             {
                 Console.WriteLine("No se pudo cargar la partida guardada.");
