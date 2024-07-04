@@ -1,14 +1,14 @@
 {
-  "Id": 99,
-  "Name": "KINGLER",
-  "Hp": 18,
-  "Attack": 149,
-  "Defense": 137,
-  "Special_attack": 69,
-  "Special_defense": 70,
-  "Speed": 94,
+  "Id": 115,
+  "Name": "KANGASKHAN",
+  "Hp": 175,
+  "Attack": 112,
+  "Defense": 96,
+  "Special_attack": 64,
+  "Special_defense": 97,
+  "Speed": 106,
   "Level": 50,
-  "Hp_max": 128,
-  "Score": 131.37,
-  "Iv": 27
+  "Hp_max": 175,
+  "Score": 130.19,
+  "Iv": 20
 }

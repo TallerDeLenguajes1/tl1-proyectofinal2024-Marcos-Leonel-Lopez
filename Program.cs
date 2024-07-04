@@ -2,9 +2,9 @@
 using System.Text.Json;
 
 string jsonString;
-string selectedOption;
+string opSeleccionada;
 
-int selectedIndex = 0;
+int indiceSelec = 0;
 bool exit = false;
 
 Random random = new Random();
@@ -16,30 +16,30 @@ List<Puntaje> puntajes = await ManejoJson.CargarJson<List<Puntaje>>(Constantes.s
 
 while (true)
 {
-    selectedIndex = 0;
+    indiceSelec = 0;
     Console.Clear();
     //Muestra menu principal y devuelve "lo seleccionado"
-    selectedOption = Interface.SeleccionarElemento(Constantes.menuOptions, ref selectedIndex, ref exit, 2, option => option);
+    opSeleccionada = Interface.SeleccionarElemento(Constantes.menuOptions, ref indiceSelec, ref exit, 2, option => option);
     if (exit)
     {
         return;
     }
     Console.Clear();
-    switch (selectedOption)
+    switch (opSeleccionada)
     {
         case "Nueva Partida":
-            // selectedIndex = 0;
+            // indiceSelec = 0;
             Console.WriteLine("Iniciando nueva partida...");
-            int subMenuIndex = 0;
+            int indexSubMenu = 0;
             bool exitSubMenu = false;
-            string selectedSubMenuOption = Interface.SeleccionarElemento(Constantes.subMenuOptions, ref subMenuIndex, ref exitSubMenu, 2, option => option);
+            string opSelecSubMenu = Interface.SeleccionarElemento(Constantes.subMenuOptions, ref indexSubMenu, ref exitSubMenu, 2, option => option);
             if (exitSubMenu)
             {
                 continue;
             }
 
             Console.Clear();
-            switch (selectedSubMenuOption)
+            switch (opSelecSubMenu)
             {
                 case "Usar datos guardados":
                     Console.WriteLine("Usando datos guardados...");
@@ -87,8 +87,8 @@ while (true)
             }
 
             Console.WriteLine("Elige tu Pokemon:");
-            subMenuIndex = 0;
-            Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref subMenuIndex, ref exitSubMenu, 1, p => p.Name);
+            indexSubMenu = 0;
+            Pokemon myPoke = Interface.SeleccionarElemento(personajes, ref indexSubMenu, ref exitSubMenu, 1, p => p.Name);
             if (exitSubMenu)
             {
                 continue;

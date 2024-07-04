@@ -36,6 +36,7 @@ public static class Juego
 
                     string opponentsJsonString = JsonSerializer.Serialize(personajes, new JsonSerializerOptions { WriteIndented = true });
                     await ManejoJson.GuardarJson(Constantes.savedGamesDirectory, Constantes.opponentsFileName, opponentsJsonString);
+                    Thread.Sleep(500);
                     break; // Volver al menú principal
                 }
             }
